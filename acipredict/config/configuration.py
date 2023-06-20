@@ -1,4 +1,4 @@
-from acipredict.entity.config_entity import DataIngestionConfig, DataTransformationonfig, DataValidationConfig, ModelEvaluationConfig, ModelPusherConfig, ModelTrainerConfig, TrainingPipelineConfig
+from acipredict.entity.config_entity import DataIngestionConfig, DataTransformationConfig, DataValidationConfig, ModelEvaluationConfig, ModelPusherConfig, ModelTrainerConfig, TrainingPipelineCofig
 from acipredict.exception import ACIPredictionException
 import sys,os
 from acipredict.constant import *
@@ -38,7 +38,7 @@ class Configuration:
 
             zip_data_dir = os.path.join(
                 data_ingestion_artifact_dir,
-                data_ingestion_info[DATA_INGESTION_RAW_ZIP_DATA_]
+                data_ingestion_info[DATA_INGESTION_RAW_ZIP_DATA_DIR_KEY]
             )
 
             raw_data_file = os.path.join(
@@ -83,7 +83,7 @@ class Configuration:
         except Exception as e:
             raise ACIPredictionException(e,sys) from e
         
-    def get_data_transformation_config(self)-> DataTransformationonfig:
+    def get_data_transformation_config(self)-> DataTransformationConfig:
         try:
             pass
         except Exception as e:
@@ -105,7 +105,7 @@ class Configuration:
             pass
         except Exception as e:
             raise ACIPredictionException(e,sys) from e
-    def get_training_pipeline_config(self)-> TrainingPipelineConfig:
+    def get_training_pipeline_config(self)-> TrainingPipelineCofig:
         try:
             training_pipeline_config = self.config_info[TRAINING_PIPELINE_CONFIG_KEY]
             artifact_dir = os.path.join(
@@ -113,7 +113,7 @@ class Configuration:
                 training_pipeline_config[TRAINING_PIPELINE_NAME_KEY],
                 training_pipeline_config[TRAINING_PIPELINE_ARTIFACT_DIR_KEY]
             )
-            training_pipeline_config=TrainingPipelineConfig(
+            training_pipeline_config=TrainingPipelineCofig(
                 artifact_dir=artifact_dir
             )
             logging.info(f"Training pipleine config: {training_pipeline_config}")
